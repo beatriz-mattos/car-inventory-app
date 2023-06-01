@@ -65,10 +65,21 @@ const updateCarById = async (id, carData) => {
         });
         return { message: 'Successfully updated car' };
     } catch (error) {
+        // TODO: error
         console.error(error);
         throw error;
     }
 }
 
-module.exports = { readAllCars, createCar, readCarById, updateCarById };
-// TODO: deleteCarById
+const deleteCarById = async (id) => {
+    try {
+        await db('cars_inventory').where({ id }).del();
+        return { message: 'Successfully deleted car' };
+    } catch (error) {
+        // TODO: error
+        console.error(error);
+        throw error;
+    }
+}
+
+module.exports = { readAllCars, createCar, readCarById, updateCarById, deleteCarById };

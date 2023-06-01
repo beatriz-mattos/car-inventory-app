@@ -43,4 +43,19 @@ const updateCarById = async (req, res) => {
   }
 }
 
-module.exports = { readAllCars, createCar, readCarById, updateCarById }
+const deleteCarById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedCar = await carModel.deleteCarById(id, req.body);
+
+    if (!deletedCar) {
+      res.status(404).json({ error: 'Car not found' });
+    } else {
+      res.json(deletedCar);
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+module.exports = { readAllCars, createCar, readCarById, updateCarById, deleteCarById }
