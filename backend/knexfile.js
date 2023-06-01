@@ -10,6 +10,21 @@ module.exports = {
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
         },
+        pool: {
+            afterCreate: (conn, done) => {
+                conn.query('SET timezone="UTC";', (err) => {
+                    if (err) {
+                        console.log('Failed to set timezone:', err);
+                    }
+                    conn.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";', (err) => {
+                        if (err) {
+                            console.log('Failed to create uuid-ossp extension:', err);
+                        }
+                        done(err, conn);
+                    });
+                });
+            },
+        },
         migrations: {
             directory: './src/migrations',
         },
