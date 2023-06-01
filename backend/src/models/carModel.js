@@ -19,7 +19,6 @@ const readAllCars = async () => {
 const createCar = async (carData) => {
     try {
         const { registration_plate, chassis_number, renavam, model, brand, year } = carData;
-
         const newCar = {
             id: uuidv4(),
             registration_plate,
@@ -31,9 +30,9 @@ const createCar = async (carData) => {
             created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
             updated_at: moment().format('YYYY-MM-DD HH:mm:ss')
         };
-    
+
         await db('cars_inventory').insert(newCar);
-    
+
         return { message: 'Just created a new car!', newCar };
     } catch (error) {
         // TODO: error
@@ -42,7 +41,15 @@ const createCar = async (carData) => {
     }
 }
 
-module.exports = { readAllCars, createCar };
+const readCarById = async (id) => {
+    try {
+        const car = await db('cars_inventory').where({ id }).first();
+        return car;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
-
-// TODO: readCarById, updateCarById, deleteCarById
+module.exports = { readAllCars, createCar, readCarById };
+// TODO: updateCarById, deleteCarById

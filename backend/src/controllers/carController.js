@@ -12,4 +12,20 @@ const createCar = async (req, res) => {
   return res.status(201).json(createdCar);
 };
 
-module.exports = { readAllCars, createCar }
+const readCarById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const car = await carModel.readCarById(id);
+    if (!car) {
+      res.status(404).json({ error: 'Car not found' });
+    } else {
+      return res.status(200).json(car);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+module.exports = { readAllCars, createCar, readCarById }
