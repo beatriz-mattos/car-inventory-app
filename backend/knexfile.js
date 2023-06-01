@@ -11,10 +11,10 @@ module.exports = {
             database: process.env.DB_DATABASE,
         },
         migrations: {
-            directory: './migrations',
+            directory: './src/migrations',
         },
         seeds: {
-            directory: './seeds',
+            directory: './src/seeds',
         },
     }
 };
