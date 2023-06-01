@@ -1,9 +1,15 @@
 const carModel = require('../models/carModel');
 
 const readAllCars = async (req, res) => {
-    const cars = await carModel.readAllCars();
+  const cars = await carModel.readAllCars();
 
-    return res.status(201).json(cars);
+  return res.status(201).json(cars);
 }
 
-module.exports = { readAllCars }
+const createCar = async (req, res) => {
+  const createdCar = await carModel.createCar(req.body);
+
+  return res.status(201).json(createdCar);
+};
+
+module.exports = { readAllCars, createCar }
