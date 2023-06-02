@@ -1,4 +1,5 @@
 const carModel = require('../models/carModel');
+const { schedulePermanentDeletion } = require('../utils/schedulePermanentDeletion');
 
 const readAllCars = async (req, res) => {
   const cars = await carModel.readAllCars();
@@ -43,19 +44,41 @@ const updateCarById = async (req, res) => {
   }
 }
 
-const deleteCarById = async (req, res) => {
+const permanentDeleteCarById = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedCar = await carModel.deleteCarById(id, req.body);
+
+    const deletedCar = await carModel.permanentDeleteCarById(id);
 
     if (!deletedCar) {
-      res.status(404).json({ error: 'Car not found' });
-    } else {
-      res.json(deletedCar);
+      return res.status(404).json({ error: 'Car not found' });
     }
+
+    res.json(deletedCar);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 
-module.exports = { readAllCars, createCar, readCarById, updateCarById, deleteCarById }
+const softDeleteCarById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const car = await carModel.softDeleteCarById(id);
+
+    if (!car) {
+      res.status(404).json({ error: 'Car not found' });
+    } else if (car.deleted) {
+      res.status(400).json({ error: 'Car is already soft-deleted' });
+    } else {
+      schedulePermanentDeletion(id);
+      res.json({ message: 'Car soft-deleted successfully! It will be permanently deleted within 3 minutes.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+module.exports = {
+  readAllCars, createCar, readCarById, updateCarById, permanentDeleteCarById, softDeleteCarById
+}

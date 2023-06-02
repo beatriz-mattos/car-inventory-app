@@ -7,6 +7,7 @@ router.post('/cars', carController.createCar);
 router.get('/cars', carController.readAllCars);
 router.get('/cars/:id', carController.readCarById);
 router.put('/cars/:id', carController.updateCarById);
-router.delete('/cars/:id', carController.deleteCarById);
+router.delete('/cars/:id', carController.softDeleteCarById);
+router.delete('/cars/:id/force', carController.permanentDeleteCarById);
 
 module.exports = router;
