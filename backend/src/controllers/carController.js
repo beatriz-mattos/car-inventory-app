@@ -25,7 +25,7 @@ const readCarById = async (req, res) => {
     if (!car) {
       res.status(404).json({ error: 'Car not found' });
     } else {
-      return res.status(201).json(car);
+      return res.status(200).json(car);
     }
   } catch (error) {
     console.error(error);
@@ -41,7 +41,7 @@ const updateCarById = async (req, res) => {
     if (!updatedCar) {
       res.status(404).json({ error: 'Car not found' });
     } else {
-      res.json(updatedCar);
+      res.status(200).json(updatedCar);
     }
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -58,7 +58,7 @@ const permanentDeleteCarById = async (req, res) => {
       return res.status(404).json({ error: 'Car not found' });
     }
 
-    res.json(deletedCar);
+    res.status(204).json(deletedCar);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
