@@ -6,8 +6,10 @@ This is a simple back-end application for managing a car inventory. It provides 
 - Node.js
 - Express.js
 - Knex.js
-- PostgreSQL
-- Tests: Mocha (testing framework), Chai (for assertion), Sinon and Axios (for mocks)
+- Pg (module for interacting with PostgreSQL databases)
+- Dotenv
+- Node cron
+- Tests: Mocha (testing framework), Chai (for the assertions), Sinon and Axios (for the mocks)
 
 ## Installation
 1. Clone the repository:
