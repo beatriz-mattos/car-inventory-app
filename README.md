@@ -7,7 +7,7 @@ This is a application for managing a car inventory. It provides endpoints for ad
 - Express.js
 - Knex.js
 - PostgreSQL
-- Tests: Mocha (testing framework) and Chai (assertion library)
+- Tests: Mocha (testing framework), Chai (assertion library), Sinon and Axios (mock library)
 
 ## Installation
 1. Clone the repository:
