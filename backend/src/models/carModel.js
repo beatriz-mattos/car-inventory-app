@@ -9,7 +9,6 @@ const readAllCars = async () => {
         const cars = await db.select('*').from('cars_inventory');
         return cars;
     } catch (error) {
-        // TODO: error
         console.error(error);
         throw error;
     }
@@ -34,7 +33,6 @@ const createCar = async (carData) => {
 
         return { message: 'Just created a new car!', newCar };
     } catch (error) {
-        // TODO: error
         console.error(error);
         throw error;
     }
@@ -45,7 +43,6 @@ const readCarById = async (id) => {
         const car = await db('cars_inventory').where({ id }).first();
         return car;
     } catch (error) {
-        // TODO: error
         console.error(error);
         throw error;
     }
@@ -65,7 +62,6 @@ const updateCarById = async (id, carData) => {
         });
         return { message: 'Successfully updated car' };
     } catch (error) {
-        // TODO: error
         console.error(error);
         throw error;
     }
@@ -76,7 +72,6 @@ const permanentDeleteCarById = async (id) => {
         await db('cars_inventory').where({ id }).del();
         return { message: 'Permanently deleted car' };
     } catch (error) {
-        // TODO: error
         console.error(error);
         throw error;
     }
