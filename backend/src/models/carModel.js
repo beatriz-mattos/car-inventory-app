@@ -92,7 +92,10 @@ const softDeleteCarById = async (id) => {
         // Mark the car as deleted by setting a flag "deleted" to true
         await db('cars_inventory').where({ id }).update({ deleted: true });
 
-        return { message: 'Car successfully soft-deleted! Attention, it will be permanently deleted within 6 minutes' };
+        return {
+            message:
+                'Car successfully soft-deleted! Attention, it will be permanently deleted within 6 minutes'
+        };
     } catch (error) {
         console.error(error);
         throw error;
@@ -100,6 +103,11 @@ const softDeleteCarById = async (id) => {
 };
 
 module.exports = {
-    readAllCars, createCar, readCarById, updateCarById, permanentDeleteCarById, softDeleteCarById
+    readAllCars,
+    createCar,
+    readCarById,
+    updateCarById,
+    permanentDeleteCarById,
+    softDeleteCarById
 };
 
