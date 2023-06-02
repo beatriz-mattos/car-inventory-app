@@ -4,7 +4,7 @@ const { schedulePermanentDeletion } = require('../utils/schedulePermanentDeletio
 const readAllCars = async (req, res) => {
   const cars = await carModel.readAllCars();
 
-  return res.status(201).json(cars);
+  return res.status(200).json(cars);
 }
 
 const createCar = async (req, res) => {
@@ -21,7 +21,7 @@ const readCarById = async (req, res) => {
     if (!car) {
       res.status(404).json({ error: 'Car not found' });
     } else {
-      return res.status(200).json(car);
+      return res.status(201).json(car);
     }
   } catch (error) {
     console.error(error);
@@ -68,10 +68,12 @@ const softDeleteCarById = async (req, res) => {
     if (!car) {
       res.status(404).json({ error: 'Car not found' });
     } else if (car.deleted) {
-      res.status(400).json({ error: 'Car is already soft-deleted' });
+      res.status(409).json({ error: 'Car is already soft-deleted' });
     } else {
       schedulePermanentDeletion(id);
-      res.json({ message: 'Car soft-deleted successfully! It will be permanently deleted within 3 minutes.' });
+      res.status(204).json({
+        message: 'Car soft-deleted successfully! It will be permanently deleted within 3 minutes.'
+      });
     }
   } catch (error) {
     console.error(error);
@@ -80,5 +82,10 @@ const softDeleteCarById = async (req, res) => {
 };
 
 module.exports = {
-  readAllCars, createCar, readCarById, updateCarById, permanentDeleteCarById, softDeleteCarById
+  readAllCars,
+  createCar,
+  readCarById,
+  updateCarById,
+  permanentDeleteCarById,
+  softDeleteCarById
 }
