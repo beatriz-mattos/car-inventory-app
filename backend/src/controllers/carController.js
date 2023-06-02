@@ -8,9 +8,13 @@ const readAllCars = async (req, res) => {
 }
 
 const createCar = async (req, res) => {
-  const createdCar = await carModel.createCar(req.body);
-
-  return res.status(201).json(createdCar);
+  try {
+    const createdCar = await carModel.createCar(req.body);
+    return res.status(201).json(createdCar);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 const readCarById = async (req, res) => {

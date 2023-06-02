@@ -17,6 +17,8 @@ const readAllCars = async () => {
 const createCar = async (carData) => {
     try {
         const { registration_plate, chassis_number, renavam, model, brand, year } = carData;
+        const currentDate = new Date();
+
         const newCar = {
             id: uuidv4(),
             registration_plate,
@@ -25,18 +27,18 @@ const createCar = async (carData) => {
             model,
             brand,
             year,
-            created_at: db.fn.now(),
-            updated_at: db.fn.now()
+            created_at: currentDate,
+            updated_at: currentDate
         };
 
         await db('cars_inventory').insert(newCar);
 
-        return { message: 'Just created a new car!', newCar };
+        return { message: 'Just created a new car!', car: newCar };
     } catch (error) {
         console.error(error);
         throw error;
     }
-}
+};
 
 const readCarById = async (id) => {
     try {
@@ -58,7 +60,7 @@ const updateCarById = async (id, carData) => {
             model,
             brand,
             year,
-            updated_at: db.fn.now()
+            updated_at: new Date()
         });
         return { message: 'Successfully updated car' };
     } catch (error) {
