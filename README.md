@@ -1,6 +1,6 @@
 # Car Inventory App :car:
 
-This is a application for managing a car inventory. It provides endpoints for adding, deleting, and soft-deleting cars. Soft-deleted cars are permanently deleted after a certain period of time.
+This is a simple back-end application for managing a car inventory. It provides endpoints for adding, deleting, and soft-deleting cars. Soft-deleted cars are permanently deleted after a certain period of time.
 
 ## Tecnologies Used
 - Node.js
@@ -11,7 +11,7 @@ This is a application for managing a car inventory. It provides endpoints for ad
 
 ## Installation
 1. Clone the repository:
-```git clone https://github.com/your-username/car-inventory-app.git```
+```git clone https://github.com/beatriz-mattos/car-inventory-app.git```
 
 2. Install the dependencies:
 ```cd car-inventory-app/backend && npm install```
