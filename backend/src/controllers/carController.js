@@ -75,7 +75,7 @@ const softDeleteCarById = async (req, res) => {
       res.status(409).json({ error: 'Car is already soft-deleted' });
     } else {
       schedulePermanentDeletion(id);
-      res.status(204).json({
+      res.status(200).json({
         message: 'Car soft-deleted successfully! It will be permanently deleted within 3 minutes.'
       });
     }
